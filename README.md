@@ -1,7 +1,4 @@
-Below is a polished, detailed, and professional **README.md** you can use for your repository.
-Feel free to tell me if you want badges, installation steps, diagrams, or code samples added!
 
----
 
 # 📚 Java Data Structures & Algorithms Repository
 
@@ -122,23 +119,6 @@ Below are the major categories included:
 * Offer learning resources for students and developers improving DSA skills
 * Promote reusable, modular, and well-documented code
 
----
-
-## 🤝 Contributing
-
-Contributions are welcome!
-Feel free to:
-
-* Submit pull requests
-* Add new algorithms
-* Improve documentation
-* Suggest optimizations
-
----
-
-## 📜 License
-
-This project is open-source under the **MIT License**.
 
 
 
