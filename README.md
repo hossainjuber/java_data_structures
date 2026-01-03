@@ -2,7 +2,7 @@
 
 # 📚 Java Data Structures & Algorithms Repository
 
-A comprehensive collection of **Java implementations** covering essential **Data Structures** and **Algorithms**.
+This repo contains a comprehensive collection of **Java implementations** covering essential **Data Structures** and **Algorithms**.
 This repository is intended for learners, interview preparation, competitive programming, and anyone looking to strengthen their foundations in DSA using Java.
 
 ---
