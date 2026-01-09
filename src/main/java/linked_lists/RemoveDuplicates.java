@@ -1,5 +1,3 @@
-package CrackingTheCodingInterview.LinkedList;
-
 public class RemoveDuplicates {
 
     public static void main(String[] str){
