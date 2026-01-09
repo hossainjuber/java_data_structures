@@ -1,12 +1,7 @@
-package linked_lists;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 public class LRUCache {
-    public static void main(String[] str) {
+
+
+	 public static void main(String[] str) {
         LRUCache lru = new LRUCache(3);
         lru.insertKeyValuePair("b", 2);
         lru.insertKeyValuePair("a", 1);
@@ -20,60 +15,71 @@ public class LRUCache {
         result = lru.getValueFromKey("a");
 
     }//main
-	public static class Key_Value{
-        Key_Value(String k, Integer v){
-            this.key = k;
-            this.value = v;
-        }
-        String key;
-        Integer value;
-	}
 
+
+  static class LRUCache {
     int maxSize;
-	Map<String, Integer> cache = new HashMap<>();
-	List<Key_Value> list = new ArrayList<>();
+    Map<String, Node> map;
+    Node head = new Node();
+    Node tail = new Node();
 
     public LRUCache(int maxSize) {
       this.maxSize = maxSize > 1 ? maxSize : 1;
+      map = new HashMap<>(maxSize);
+      head.next = tail;
+      tail.prev = head;
     }
 
     public void insertKeyValuePair(String key, int value) {
-      /* 1. check to see if max capacity has been reached
-         2. if max capacity is reached then, delete the bottom elemen int the list
-            and delete that same element from the map
-         3. else add the element int the map and add the element at the top of the
-            list.
-       */
-    if(list.size()==maxSize){
-        list.remove(0);
-    }
-
-    list.add(new Key_Value(key, value));
-    cache.put(key, list.size()-1);
+      //check map to see if it exists
+      //if in map then then it must be in list, update list (remove add)
+      Node node = map.get(key);
+      if(node!=null){
+        node.value = value;
+        remove(node);        
+        add(node);
+      }else{
+        //not in map, not in list then 
+        //first check to see if we have reached our cap, if yes then increase it
+        if(map.size()==maxSize){
+          map.remove(tail.prev.key);
+          remove(tail.prev);
+        }
+        //create a new node and add in map list
+        Node newNode = new Node(key, value);
+        map.put(key, newNode);
+        add(newNode);
+      }
     }
 
     public LRUResult getValueFromKey(String key) {
-      /* 1. get value from the map using the key
-		 2. update the list
-	  */
-      Key_Value k_v = list.get(cache.get(key));
-      list.remove(Integer.valueOf(k_v.value));
-      list.add(k_v);
-      LRUResult  result = new LRUResult(true, k_v.value);
-
-      return result;
+      Node node = map.get(key);
+      if(node!=null){
+        LRUResult result = new LRUResult(true, node.value);
+        remove(node);
+        add(node);
+        return result;
+      }
+      return null;
     }
 
     public String getMostRecentKey() {
-      /* 1. get the head of the list
-
-      */
-      Key_Value k_v = list.get(list.size()-1);
-      return k_v.key;
+      return head.next.key;
     }
 
+    private void remove(Node node){
+      node.prev.next = node.next;
+      node.next.prev = node.prev;
+    }
 
+    private void add(Node node){
+      node.next = head.next;
+      head.next.prev = node;
 
+      head.next = node;
+      node.prev = head;
+    }
+  }
 
   static class LRUResult {
     boolean found;
@@ -83,8 +89,20 @@ public class LRUCache {
       this.found = found;
       this.value = value;
     }
-  }//LRUResult
-
-
   }
 
+  static class Node{
+    String key;
+    int value;
+    Node next;
+    Node prev;
+
+    public Node(){}
+
+    public Node(String key, int value){
+      this.key = key;
+      this.value = value;
+    }
+    
+  }
+}
